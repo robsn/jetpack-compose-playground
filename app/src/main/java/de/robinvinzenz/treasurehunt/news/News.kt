@@ -1,3 +1,11 @@
 package de.robinvinzenz.treasurehunt.news
 
-data class News(val title: String, val subtitle: String, val description: String, val image: Int)
+import androidx.annotation.DrawableRes
+
+data class News(
+    val title: String,
+    val subtitle: String,
+    val description: String,
+    @DrawableRes val image: Int,
+    val liked: Boolean
+)

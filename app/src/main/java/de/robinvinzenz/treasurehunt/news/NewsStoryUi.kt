@@ -4,8 +4,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -21,7 +29,10 @@ fun NewsStory(news: News) {
     Column(modifier = Modifier.padding(12.dp)) {
         HeaderImage(news.image)
         Spacer(Modifier.preferredHeight(4.dp))
-        Headline(news.title)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Headline(news.title)
+            Favorite(news.liked)
+        }
         SubHeadline(news.subtitle)
         Content(news.description)
     }
@@ -66,8 +77,16 @@ private fun Content(text: String) {
     )
 }
 
+@Composable
+fun Favorite(liked: Boolean) {
+    val uiLiked = remember { mutableStateOf(liked) }
+    IconButton(onClick = { uiLiked.value = uiLiked.value.not() }) {
+        Icon(if (uiLiked.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder)
+    }
+}
+
 @Preview
 @Composable
 fun DefaultNewsStory() {
-    NewsStory(News("Headline", "Subtitle", "Lorem ipsum dolor sit amen", R.drawable.header))
+    NewsStory(News("Headline", "Subtitle", "Lorem ipsum dolor sit amen", R.drawable.header, false))
 }

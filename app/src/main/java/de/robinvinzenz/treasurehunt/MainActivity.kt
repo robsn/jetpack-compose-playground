@@ -12,11 +12,11 @@ import de.robinvinzenz.treasurehunt.news.NewsStory
 class MainActivity : AppCompatActivity() {
 
     private val dataProvider = listOf(
-        News("Headline1", "Subtitle1", "Description1", R.drawable.header),
-        News("Headline2", "Subtitle2", "Description2", R.drawable.header),
-        News("Headline3", "Subtitle3", "Description3", R.drawable.header),
-        News("Headline4", "Subtitle4", "Description4", R.drawable.header),
-        News("Headline5", "Subtitle5", "Description5", R.drawable.header),
+        News("Headline1", "Subtitle1", "Description1", R.drawable.header, false),
+        News("Headline2", "Subtitle2", "Description2", R.drawable.header, true),
+        News("Headline3", "Subtitle3", "Description3", R.drawable.header, false),
+        News("Headline4", "Subtitle4", "Description4", R.drawable.header, true),
+        News("Headline5", "Subtitle5", "Description5", R.drawable.header, false),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
