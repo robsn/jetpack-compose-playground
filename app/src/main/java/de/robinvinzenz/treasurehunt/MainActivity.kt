@@ -6,24 +6,18 @@ import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
-import de.robinvinzenz.treasurehunt.news.News
 import de.robinvinzenz.treasurehunt.news.NewsStory
+import de.robinvinzenz.treasurehunt.news.data.MockRepository
 
 class MainActivity : AppCompatActivity() {
 
-    private val dataProvider = listOf(
-        News("Headline1", "Subtitle1", "Description1", R.drawable.header, false),
-        News("Headline2", "Subtitle2", "Description2", R.drawable.header, true),
-        News("Headline3", "Subtitle3", "Description3", R.drawable.header, false),
-        News("Headline4", "Subtitle4", "Description4", R.drawable.header, true),
-        News("Headline5", "Subtitle5", "Description5", R.drawable.header, false),
-    )
+    private val repository = MockRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ScrollableColumn(modifier = Modifier.fillMaxSize()) {
-                dataProvider.forEach { NewsStory(it) }
+                repository.getAll().forEach { NewsStory(it) }
             }
         }
     }

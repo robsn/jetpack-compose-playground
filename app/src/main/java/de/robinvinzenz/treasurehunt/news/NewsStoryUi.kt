@@ -2,6 +2,7 @@ package de.robinvinzenz.treasurehunt.news
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -27,6 +28,7 @@ import de.robinvinzenz.treasurehunt.R
 @Composable
 fun NewsStory(news: News) {
     Column(modifier = Modifier.padding(12.dp)) {
+        AuthorInfo(news.author, news.publishedAt)
         HeaderImage(news.image)
         Spacer(Modifier.preferredHeight(4.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -35,6 +37,27 @@ fun NewsStory(news: News) {
         }
         SubHeadline(news.subtitle)
         Content(news.description)
+    }
+}
+
+@Composable
+fun AuthorInfo(author: Author, publishedAt: Long) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Image(
+            imageResource(id = author.avatar),
+            modifier = Modifier
+                .preferredSize(36.dp)
+                .clip(shape = CircleShape),
+            contentScale = ContentScale.Crop
+        )
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
+        ) {
+            Text(text = author.displayName())
+            Text(text = publishedAt.toString())
+        }
     }
 }
 
@@ -88,5 +111,15 @@ fun Favorite(liked: Boolean) {
 @Preview
 @Composable
 fun DefaultNewsStory() {
-    NewsStory(News("Headline", "Subtitle", "Lorem ipsum dolor sit amen", R.drawable.header, false))
+    NewsStory(
+        News(
+            "Headline",
+            "Subtitle",
+            "Lorem ipsum dolor sit amen",
+            Author("Doe", "Jane", R.drawable.avatar),
+            System.currentTimeMillis(),
+            R.drawable.header,
+            false
+        )
+    )
 }
